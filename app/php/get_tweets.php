@@ -8,7 +8,7 @@ $oauth_access_token_secret = 'TdauMr7bGqGRxRFyaQ3ZitfcbJ8gNE5GmwpXoyc9SoPQM';
 $consumer_key = 'TndpKFZMC6nVQCfcVr4HrULuC';
 $consumer_secret = 'jMfpP40oqMqlUxEqsp5Y1dLPZzNq7zFTc4vHrycYP8yuq3GwUX';
 //$user_id = '78884300';
-$screen_name = 'richgilbank';
+$screen_name = ($_GET['username']);
 $count = 200;
 $retweets = false;
 

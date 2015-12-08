@@ -2,13 +2,15 @@ var app = new Vue ({
 	el: "#app",
 	data: {
 		test: "Wilfred",
-		corpus: ""
+		corpus: "",
+		searchQuery: ""
 	},
 	methods: {
-		getTweets: function(twitterHandle) {
+		getTweets: function() {
 			var self = this;
 			self.test = "Wilfred is thinking";
-		    this.$http.get('php/get_tweets.php', function (data, status, request) {
+			var twitterEndpoint = 'php/get_tweets.php?username=' + self.searchQuery;
+		    this.$http.get(twitterEndpoint, function (data, status, request) {
 		    	var tags = "";
 		    	$.each(data, function(i, obj) {
 						tags += " " + obj.text;
@@ -23,7 +25,7 @@ var app = new Vue ({
 					self.test = "Wilfred found this:";
 
 		    }).error(function (data, status, request) {
-		         console.log(data + status + request);
+		         console.log(data + status);
 		    })
 		}
 	}
