@@ -5,17 +5,12 @@ var app = new Vue ({
 		corpus: ""
 	},
 	methods: {
-		getTweets: function() {
+		getTweets: function(twitterHandle) {
 			var self = this;
 			self.test = "Wilfred is thinking";
-			
-			$.ajax({
-			url: 'php/get_tweets.php',
-			type: 'GET',
-			success: function(response) {
-				var tags = "";
-				if (typeof response.errors === 'undefined' || response.errors.length < 1) {
-					$.each(response, function(i, obj) {
+		    this.$http.get('php/get_tweets.php', function (data, status, request) {
+		    	var tags = "";
+		    	$.each(data, function(i, obj) {
 						tags += " " + obj.text;
 						tags = tags.replace(/(https?:\/\/[^\s]+)/g, '');//remove links
 						tags = tags.replace(/[^a-zA-Z ]/g, "");//remove everything but letters
@@ -24,14 +19,12 @@ var app = new Vue ({
 					});
 
 					tags = tags.removeStopWords();
-					self.corpus = tags;
+					self.$set('corpus', tags);
 					self.test = "Wilfred found this:";
-				}
-			},
-			error: function(errors) {
-				$('.tweets-container p:first').text('Request error');
-			}
-		});
+
+		    }).error(function (data, status, request) {
+		         console.log(data + status + request);
+		    })
 		}
 	}
 })
