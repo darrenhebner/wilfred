@@ -1,28 +1,34 @@
 var app = new Vue ({
 	el: "#app",
+
 	data: {
 		test: "Wilfred",
 		corpus: "",
 		searchQuery: ""
 	},
+
 	methods: {
 		getTweets: function() {
 			var self = this;
 			self.test = "Wilfred is thinking";
 			var twitterEndpoint = 'php/get_tweets.php?username=' + self.searchQuery;
-		    this.$http.get(twitterEndpoint, function (data, status, request) {
-		    	var tags = "";
-		    	$.each(data, function(i, obj) {
-						tags += " " + obj.text;
-						tags = tags.replace(/(https?:\/\/[^\s]+)/g, '');//remove links
-						tags = tags.replace(/[^a-zA-Z ]/g, "");//remove everything but letters
-						tags = tags.replace(/RT/g,''); // remove RT
-						tags = tags.toLowerCase(); // make lowercase
-					});
 
-					tags = tags.removeStopWords();
-					self.$set('corpus', tags);
-					self.test = "Wilfred found this:";
+		    this.$http.get(twitterEndpoint, function (data, status, request) {
+
+		    	var corpus = "";
+
+		    	$.each(data, function(i, obj) {
+					corpus += " " + obj.text;
+				});
+
+				corpus = corpus.replace(/(https?:\/\/[^\s]+)/g, '');//remove links
+				corpus = corpus.replace(/[^a-zA-Z ]/g, "");//remove everything but letters
+				corpus = corpus.replace(/RT/g,''); // remove RT
+				corpus = corpus.toLowerCase(); // make lowercase
+
+				corpus = corpus.removeStopWords();
+				self.$set('corpus', corpus);
+				self.test = "Wilfred found this:";
 
 		    }).error(function (data, status, request) {
 		         console.log(data + status);
