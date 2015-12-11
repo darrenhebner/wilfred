@@ -4,14 +4,19 @@ var app = new Vue ({
 	data: {
 		test: "Wilfred",
 		corpus: "",
-		searchQuery: ""
+		searchQuery: "",
+		topics: [],
+        food: [],
+        music: [],
+        sports: [],
+        programmingLanguage: []
 	},
 
 	methods: {
 		getTweets: function() {
 			var self = this;
-			self.test = "Wilfred is thinking";
 			var twitterEndpoint = 'php/get_tweets.php?username=' + self.searchQuery;
+			self.test = "Wilfred is researching";
 
 		    this.$http.get(twitterEndpoint, function (data, status, request) {
 
@@ -25,16 +30,170 @@ var app = new Vue ({
 				corpus = corpus.replace(/[^a-zA-Z ]/g, "");//remove everything but letters
 				corpus = corpus.replace(/RT/g,''); // remove RT
 				corpus = corpus.toLowerCase(); // make lowercase
-
 				corpus = corpus.removeStopWords();
+
 				self.$set('corpus', corpus);
-				self.test = "Wilfred found this:";
+				self.test = "Wilfred is analyzing";
+				self.getAnalysis();
 
 		    }).error(function (data, status, request) {
 		         console.log(data + status);
 		    })
+		},
+		getAnalysis: function(){
+			var self = this;
+			var coarseTopics = "";
+			var topics = [];
+			var textSearchURL = 'php/analyze.php?corpus=' + this.corpus;
+			var food = [];
+			var music = [];
+            var sports = [];
+            var programmingLanguage = [];
+
+			this.$http.get(textSearchURL, function (data, status, request) {
+                // pull topics from data
+			 	$.each(data.response.topics, function(i, obj) {
+			 		if (obj.score > 0.9) {
+			 			topics.push(obj.label);
+			 		};
+				});
+
+                // pull musicial artists from data
+				for (var j = 0; j < data.response.entities.length; j++) {
+					if (data.response.entities[j].confidenceScore > 0 && data.response.entities[j].type) {
+				 		for (var k = 0; k < data.response.entities[j].type.length; k++) {
+				 			if (data.response.entities[j].type[k] == "MusicalArtist") {
+				 				music.push(data.response.entities[j].entityId);
+				 			}
+				 		}
+				 	}
+				};
+
+                for (var j = 0; j < data.response.entities.length; j++) {
+                    if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
+                        for (var k = 0; k < data.response.entities[j].type.length; k++) {
+                            if (data.response.entities[j].type[k] == "Food") {
+                                food.push(data.response.entities[j].entityId);
+                            }
+                        }
+                    }
+                };
+
+                for (var j = 0; j < data.response.entities.length; j++) {
+                    if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
+                        for (var k = 0; k < data.response.entities[j].type.length; k++) {
+                            if (data.response.entities[j].type[k] == "SportsEvent" || data.response.entities[j].type[k] == "Sport" || data.response.entities[j].type[k] == "SportsTeam" || data.response.entities[j].type[k] == "SportsLeague") {
+                                sports.push(data.response.entities[j].entityId);
+                            }
+                        }
+                    }
+                };
+
+                for (var j = 0; j < data.response.entities.length; j++) {
+                    if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
+                        for (var k = 0; k < data.response.entities[j].type.length; k++) {
+                            if (data.response.entities[j].type[k] == "ProgrammingLanguage") {
+                                programmingLanguage.push(data.response.entities[j].entityId);
+                            }
+                        }
+                    }
+                };
+
+				self.test = "Wilfred"
+				self.$set('music', music);
+                self.$set('food', food);
+				self.$set('topics', topics);
+                self.$set('sports', sports);
+                self.$set('programmingLanguage', programmingLanguage);
+
+		    }).error(function (data, status, request) {
+		        console.log(data + status);
+		    })
+
 		}
-	}
+	},
+    computed: {
+        blurb: function() {
+            var sentence = "";
+
+            if (this.topics.length > 0) {
+                sentence += this.searchQuery + " is interested in ";
+                if (this.topics.length == 1) {
+                    sentence += this.topics[0] + ". ";
+                } else {
+                    for (var i = 0; i < this.topics.length; i++) {
+                        if (i < this.topics.length - 1) {
+                            sentence += this.topics[i] + ", ";
+                        } else {
+                            sentence += " and " + this.topics[i] + ". ";
+                        }
+                    }
+                }
+            }   
+
+            if (this.music.length > 0) {
+                sentence += "They like to listen to ";
+                if (this.music.length == 1) {
+                    sentence += this.music[0] + ". ";
+                } else {
+                    for (var i = 0; i < this.music.length; i++) {
+                        if (i < this.music.length - 1) {
+                            sentence += this.music[i] + ", ";
+                        } else {
+                            sentence += " and " + this.music[i] + ". ";
+                        }
+                    }
+                }
+            }
+
+            if (this.food.length > 0) {
+                sentence += "They like to eat ";
+                if (this.food.length == 1) {
+                    sentence += this.food[0] + ". ";
+                } else {
+                    for (var i = 0; i < this.food.length; i++) {
+                        if (i < this.food.length - 1) {
+                            sentence += this.food[i] + ", ";
+                        } else {
+                            sentence += " and " + this.food[i] + ". ";
+                        }
+                    }
+                }
+            }
+
+            if (this.sports.length > 0) {
+                sentence += "They like ";
+                if (this.sports.length == 1) {
+                    sentence += this.sports[0] + ". ";
+                } else {
+                    for (var i = 0; i < this.sports.length; i++) {
+                        if (i < this.sports.length - 1) {
+                            sentence += this.sports[i] + ", ";
+                        } else {
+                            sentence += " and " + this.sports[i] + ". ";
+                        }
+                    }
+                }
+            }
+
+              if (this.programmingLanguage.length > 0) {
+                sentence += "They like to program with ";
+                if (this.programmingLanguage.length == 1) {
+                    sentence += this.programmingLanguage[0] + ". ";
+                } else {
+                    for (var i = 0; i < this.programmingLanguage.length; i++) {
+                        if (i < this.programmingLanguage.length - 1) {
+                            sentence += this.programmingLanguage[i] + ", ";
+                        } else {
+                            sentence += " and " + this.programmingLanguage[i] + ". ";
+                        }
+                    }
+                }
+            }
+
+            return sentence;
+        }
+    }
 })
 
 String.prototype.removeStopWords = function() {
