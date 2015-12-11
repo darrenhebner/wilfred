@@ -2,7 +2,7 @@ var app = new Vue ({
 	el: "#app",
 
 	data: {
-		test: "Wilfred",
+		loadingMessage: "",
 		corpus: "",
 		searchQuery: "",
 		topics: [],
@@ -14,9 +14,9 @@ var app = new Vue ({
 
 	methods: {
 		getTweets: function() {
-			var self = this;
-			var twitterEndpoint = 'php/get_tweets.php?username=' + self.searchQuery;
-			self.test = "Wilfred is researching";
+			var _this = this;
+			var twitterEndpoint = 'php/get_tweets.php?username=' + _this.searchQuery;
+			_this.loadingMessage = "is researching";
 
 		    this.$http.get(twitterEndpoint, function (data, status, request) {
 
@@ -32,16 +32,16 @@ var app = new Vue ({
 				corpus = corpus.toLowerCase(); // make lowercase
 				corpus = corpus.removeStopWords();
 
-				self.$set('corpus', corpus);
-				self.test = "Wilfred is analyzing";
-				self.getAnalysis();
+				_this.$set('corpus', corpus);
+				_this.loadingMessage = "is analyzing";
+				_this.getAnalysis();
 
 		    }).error(function (data, status, request) {
 		         console.log(data + status);
 		    })
 		},
 		getAnalysis: function(){
-			var self = this;
+			var _this = this;
 			var coarseTopics = "";
 			var topics = [];
 			var textSearchURL = 'php/analyze.php?corpus=' + this.corpus;
@@ -99,12 +99,12 @@ var app = new Vue ({
                     }
                 };
 
-				self.test = "Wilfred"
-				self.$set('music', music);
-                self.$set('food', food);
-				self.$set('topics', topics);
-                self.$set('sports', sports);
-                self.$set('programmingLanguage', programmingLanguage);
+				_this.loadingMessage = "";
+				_this.$set('music', music);
+                _this.$set('food', food);
+				_this.$set('topics', topics);
+                _this.$set('sports', sports);
+                _this.$set('programmingLanguage', programmingLanguage);
 
 		    }).error(function (data, status, request) {
 		        console.log(data + status);
@@ -626,6 +626,7 @@ String.prototype.removeStopWords = function() {
         'y',
         'year',
         'years',
+        'yes',
         'yet',
         'you',
         'young',
