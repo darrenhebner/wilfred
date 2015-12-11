@@ -22,9 +22,9 @@ var app = new Vue ({
 
 		    	var corpus = "";
 
-		    	$.each(data, function(i, obj) {
-					corpus += " " + obj.text;
-				});
+                for (var i = 0; i < data.length; i++) {
+                    corpus += " " + data[i].text;
+                }
 
 				corpus = corpus.replace(/(https?:\/\/[^\s]+)/g, '');//remove links
 				corpus = corpus.replace(/[^a-zA-Z ]/g, "");//remove everything but letters
@@ -51,12 +51,13 @@ var app = new Vue ({
             var programmingLanguage = [];
 
 			this.$http.get(textSearchURL, function (data, status, request) {
+
                 // pull topics from data
-			 	$.each(data.response.topics, function(i, obj) {
-			 		if (obj.score > 0.9) {
-			 			topics.push(obj.label);
-			 		};
-				});
+                for (var i = 0; i < data.response.topics.length; i++) {
+                    if (data.response.topics[i].score > 0.9) {
+                        topics.push(data.response.topics[i].label);
+                    };
+                }
 
                 // pull musicial artists from data
 				for (var j = 0; j < data.response.entities.length; j++) {
@@ -176,7 +177,7 @@ var app = new Vue ({
                 }
             }
 
-              if (this.programmingLanguage.length > 0) {
+            if (this.programmingLanguage.length > 0) {
                 sentence += "They like to program with ";
                 if (this.programmingLanguage.length == 1) {
                     sentence += this.programmingLanguage[0] + ". ";
