@@ -24,21 +24,27 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
-    <h1 class="logo">
-      Wilfred {{ loadingMessage }}
-    </h1>
+    <nav>
+      <h1 class="nav__logo">
+        Wilfred {{ loadingMessage }}
+      </h1>
+
+      <a class="nav__about">About</a>
+    </nav>
 
     <h2 class="intro">
       Who would you like to learn about?
     </h2>
     
-    <form @submit.prevent="getTweets">
-      <input type="text" v-model="searchQuery">
-      <input type="submit" value="submit">
-    </form>
+    <div class="transform__container">
+      <form @submit.prevent="getTweets">
+        <input type="text" v-model="searchQuery">
+        <input type="submit" value="submit">
+      </form>
 
-    <div class="result__container">
-      <p>{{ blurb }}</p>
+      <div class="result__container">
+        <p>{{ blurb }}</p>
+      </div>
     </div>
     
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
