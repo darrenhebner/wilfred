@@ -42,7 +42,6 @@ var app = new Vue ({
 		},
 		getAnalysis: function(){
 			var _this = this;
-			var coarseTopics = "";
 			var topics = [];
 			var textSearchURL = 'php/analyze.php?corpus=' + this.corpus;
 			var food = [];
