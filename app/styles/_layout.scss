@@ -47,4 +47,7 @@ nav {
 .result__container {
 	background-color: $white;
 	min-height: 10px;
+	& p {
+		padding: 1.6em 0.8em;
+	}
 }

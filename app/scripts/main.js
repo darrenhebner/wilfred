@@ -9,7 +9,10 @@ var app = new Vue ({
         food: [],
         music: [],
         sports: [],
-        programmingLanguage: []
+        programmingLanguage: [],
+        homeView: true,
+        resultsView: false,
+        aboutView: false
 	},
 
 	methods: {
@@ -105,6 +108,8 @@ var app = new Vue ({
 				_this.$set('topics', topics);
                 _this.$set('sports', sports);
                 _this.$set('programmingLanguage', programmingLanguage);
+                _this.homeView = false;
+                _this.resultsView = true;
 
 		    }).error(function (data, status, request) {
 		        console.log(data + status);
