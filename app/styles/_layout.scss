@@ -33,7 +33,18 @@ nav {
 	max-width: 1200px;
 }
 
+.search__container {
+	display: flex;
+	& .search__field {
+		flex: 4 0 8em;
+	}
+	& .search__btn {
+		flex: 1 0 auto;
+		flex-align: right;
+	}
+}
+
 .result__container {
 	background-color: $white;
-	min-height: 20px;
+	min-height: 10px;
 }

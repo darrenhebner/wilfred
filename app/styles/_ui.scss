@@ -1,7 +1,13 @@
-input[type="text"] {
+input {
 	background: none;
 	border: 0;
-	width: 100%;
 	outline: none;
-	margin-bottom: 0;
+	margin-bottom: 0.2em;
+}
+
+.search__btn {
+	background: url('../images/search.svg') no-repeat right top;
+	background-size: contain;
+	border: 0;
+	cursor: pointer;
 }

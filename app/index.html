@@ -37,9 +37,9 @@
     </h2>
     
     <div class="transform__container">
-      <form @submit.prevent="getTweets">
-        <input type="text" v-model="searchQuery">
-        <input type="submit" value="submit">
+      <form class="search__container" @submit.prevent="getTweets">
+        <input class="search__field" type="text" v-model="searchQuery">
+        <input class="search__btn" type="submit" value="">
       </form>
 
       <div class="result__container">
