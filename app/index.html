@@ -29,7 +29,7 @@
         Wilfred {{ loadingMessage }}
       </h1>
 
-      <a class="nav__about">About</a>
+      <a class="nav__about" @click="aboutView = !aboutView">About</a>
     </nav>
 
     <h2 v-show="homeView" class="intro" transition="fade">
@@ -44,6 +44,15 @@
 
       <div class="result__container">
         <p v-show="resultsView">{{ blurb }}</p>
+      </div>
+    </div>
+
+    <div v-show="aboutView" class="about__container">
+      <div class="about__inner">
+        <p>Wilfred is your networking wingman.</p>
+        <p>He will do the dirty work of skimming through anyones twitter feed to find their favourite things to talk about. This includes their favourite foods, sports teams, music, and even programming languages.</p>
+
+        <p><a @click="aboutView = false">&larr; Back to search.</a></p>
       </div>
     </div>
     

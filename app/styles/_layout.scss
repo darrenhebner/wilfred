@@ -5,11 +5,13 @@ body {
 }
 
 nav {
+	position: relative;
 	height: 100px;
 	width: 100%;
 	overflow: auto;
 	margin: 1.6em 0 1.6em;
 	line-height: 100px;
+	z-index: 1000;
 }
 
 .nav__logo {
@@ -19,6 +21,11 @@ nav {
 
 .nav__about {
 	float: right;
+	z-index: 1000;
+}
+
+a {
+	cursor: pointer;
 }
 
 .intro {
@@ -50,5 +57,22 @@ nav {
 	max-height: 10px;
 	& p {
 		padding: 1.6em 0.8em;
+	}
+}
+
+.about__container {
+	position: absolute;
+	background: $black;
+	top: 0;
+	width: 100%;
+	min-height: 100vh;
+	z-index: 1;
+	& .about__inner {
+		margin: 200px 0;
+		max-width: 1200px;
+		& p {
+			width: 75%;
+			margin-bottom: 1.6em;
+		}
 	}
 }
