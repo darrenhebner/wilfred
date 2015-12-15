@@ -113,7 +113,33 @@ var app = new Vue ({
 		        console.log(data + status);
 		    })
 
-		}
+		},
+        resetSearch: function () {
+            // close about
+            this.aboutView = false;
+
+            // back to home view
+            this.homeView = true;
+
+            // close results view
+            this.resultsView = false;
+
+            // reset search query
+            this.searchQuery = "";
+
+            // focus on input
+            document.querySelector(".search__field").focus();
+
+            // reset transformation
+            var searchContainer = document.querySelector(".search__container");
+            var transformContainer = document.querySelector(".transform__container");
+            var resultContainer = document.querySelector(".result__container");
+
+            searchContainer.className = "search__container";
+            resultContainer.className = "result__container";
+            transformContainer.className = "transform__container";
+
+        }
 	},
     computed: {
         blurb: function() {

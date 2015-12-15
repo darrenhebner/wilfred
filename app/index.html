@@ -25,7 +25,7 @@
     <![endif]-->
     
     <nav>
-      <h1 class="nav__logo">
+      <h1 class="nav__logo" @click="resetSearch">
         Wilfred {{ loadingMessage }}
       </h1>
 
@@ -43,7 +43,10 @@
       </form>
 
       <div class="result__container">
-        <p v-show="resultsView">{{ blurb }}</p>
+        <p v-show="resultsView">
+          {{ blurb }}
+          <a @click="resetSearch">&larr; Back to search</a>
+        </p>
       </div>
     </div>
 

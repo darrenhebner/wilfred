@@ -29,12 +29,26 @@
 	opacity: 0;
 }
 
+.fadeOut--reverse {
+	opacity: 1;
+}
+
 .moveUp {
 	animation: 0.6s cubic-bezier(.87,-.21,.19,1.34) .15s forwards moveUp;
 }
 
+.moveUp--reverse {
+	animation: 0.6s cubic-bezier(.87,-.21,.19,1.34) .15s forwards moveUp;
+	animation-direction: reverse;
+}
+
 .expand {
 	animation: 0.25s cubic-bezier(1,.02,.98,.53) 1.2s forwards expand;
+}
+
+.expand--reverse {
+	animation: 0.25s cubic-bezier(1,.02,.98,.53) 1.2s forwards expand;
+	animation-direction: reverse;
 }
 
 @keyframes expand {
