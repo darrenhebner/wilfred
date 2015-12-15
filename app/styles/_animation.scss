@@ -1,24 +1,35 @@
 .fade-transition {
-	transition: all .15s ease-out;
+	transition: all .25s ease-out;
 	opacity: 1;
 }
-.fade-enter, .fade-leave {
+.fade-enter {
 	opacity: 0;
 }
 
-// .expandDown-transition {
-// 	transition: all 1s ease-in-out;
-// 	display: block !important;
-// 	height: 200px;
-// 	top: 200px;
-// 	bottom: auto;
-// }
+.fade-leave {
+	transition: all .25s ease-in 0.4s;
+	opacity: 0;
+}
 
-// .expandDown-enter, .expandDown-leave {
-// 	top: auto;
-// 	height: 10px;
-// 	bottom: 2.4em;
-// }
+
+.introFade-transition {
+	transition: all .15s ease-out;
+	opacity: 1;
+}
+.introFade-enter, .introFade-leave {
+	opacity: 0;
+}
+
+.fadeInUp-transition {
+	transition: transform 0.35s ease-out .35s, opacity 0.5s ease-in .35s;
+	opacity: 1;
+	transform: translateY(0);
+}
+.fadeInUp-enter, .fadeInUp-leave {
+	transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+	opacity: 0;
+	transform: translateY(40px);
+}
 
 .search__container {
 	transition: all .15s;
