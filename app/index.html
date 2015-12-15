@@ -36,8 +36,8 @@
       Who would you like to learn about?
     </h2>
     
-    <div v-show="resultsView" class="transform__container" transition="expandDown">
-      <form class="search__container" @submit.prevent="getTweets" v-show="homeView" transition="fade">
+    <div class="transform__container">
+      <form class="search__container" @submit.prevent="getTweets">
         <input class="search__field" type="text" v-model="searchQuery">
         <input class="search__btn" type="submit" value="">
       </form>

@@ -28,7 +28,7 @@ nav {
 
 .transform__container {
 	position: absolute;
-	bottom: 2.4em;
+	top: calc(100vh - 200px);
 	width: 90%;
 	max-width: 1200px;
 }
@@ -47,6 +47,7 @@ nav {
 .result__container {
 	background-color: $white;
 	min-height: 10px;
+	max-height: 10px;
 	& p {
 		padding: 1.6em 0.8em;
 	}

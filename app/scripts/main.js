@@ -85,7 +85,7 @@ var app = new Vue ({
                 for (var j = 0; j < data.response.entities.length; j++) {
                     if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
                         for (var k = 0; k < data.response.entities[j].type.length; k++) {
-                            if (data.response.entities[j].type[k] == "SportsEvent" || data.response.entities[j].type[k] == "Sport" || data.response.entities[j].type[k] == "SportsTeam" || data.response.entities[j].type[k] == "SportsLeague") {
+                            if (data.response.entities[j].type[k] == "SportsEvent" || data.response.entities[j].type[k] == "Sport" || data.response.entities[j].type[k] == "SportsLeague") {
                                 sports.push(data.response.entities[j].entityId);
                             }
                         }
@@ -110,6 +110,14 @@ var app = new Vue ({
                 _this.$set('programmingLanguage', programmingLanguage);
                 _this.homeView = false;
                 _this.resultsView = true;
+
+                var searchContainer = document.querySelector(".search__container");
+                var transformContainer = document.querySelector(".transform__container");
+                var resultContainer = document.querySelector(".result__container");
+
+                searchContainer.className = searchContainer.className + " fadeOut";
+                resultContainer.className = resultContainer.className + " expand"
+                transformContainer.className = transformContainer.className + " moveUp";
 
 		    }).error(function (data, status, request) {
 		        console.log(data + status);
@@ -274,6 +282,7 @@ String.prototype.removeStopWords = function() {
         'cannot',
         'case',
         'cases',
+        'car',
         'certain',
         'certainly',
         'clear',
@@ -584,6 +593,7 @@ String.prototype.removeStopWords = function() {
         'turning',
         'turns',
         'two',
+        'twitter',
         'u',
         'under',
         'until',
