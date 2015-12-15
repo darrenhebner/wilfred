@@ -18,7 +18,7 @@ var app = new Vue ({
 	methods: {
 		getTweets: function() {
 			var _this = this;
-			var twitterEndpoint = 'php/get_tweets.php?username=' + _this.searchQuery;
+			var twitterEndpoint = 'php/get_tweets.php?username=' + _this.validateInput;
 			_this.loadingMessage = "is researching";
 
 		    this.$http.get(twitterEndpoint, function (data, status, request) {
@@ -127,8 +127,10 @@ var app = new Vue ({
 	},
     computed: {
         blurb: function() {
+            // Building the final blurb according to topics found
             var sentence = "";
 
+            // if there are topics, build a sentence with them.
             if (this.topics.length > 0) {
                 sentence += this.searchQuery + " is interested in ";
                 if (this.topics.length == 1) {
@@ -144,6 +146,7 @@ var app = new Vue ({
                 }
             }   
 
+            // if there are musicians found, add them to the sentence
             if (this.music.length > 0) {
                 sentence += "They like to listen to ";
                 if (this.music.length == 1) {
@@ -159,6 +162,7 @@ var app = new Vue ({
                 }
             }
 
+            // if there are foods found, add to sentence.
             if (this.food.length > 0) {
                 sentence += "They like to eat ";
                 if (this.food.length == 1) {
@@ -174,6 +178,7 @@ var app = new Vue ({
                 }
             }
 
+            // if any sports are found, add to sentence.
             if (this.sports.length > 0) {
                 sentence += "They like ";
                 if (this.sports.length == 1) {
@@ -189,6 +194,7 @@ var app = new Vue ({
                 }
             }
 
+            // if programming languages are found, add to sentence.
             if (this.programmingLanguage.length > 0) {
                 sentence += "They like to program with ";
                 if (this.programmingLanguage.length == 1) {
@@ -205,6 +211,14 @@ var app = new Vue ({
             }
 
             return sentence;
+        },
+        validateInput: function () {
+            var validSearchQuery = this.searchQuery;
+
+            validSearchQuery = validSearchQuery.trim(); //remove whitespace from search query
+            validSearchQuery = validSearchQuery.replace(/@/g,''); // remove @ from search query
+
+            return validSearchQuery;
         }
     }
 })
