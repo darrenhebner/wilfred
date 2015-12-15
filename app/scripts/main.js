@@ -45,7 +45,9 @@ var app = new Vue ({
 				_this.getAnalysis();
 
 		    }).error(function (data, status, request) {
-		         console.log(data + status);
+		         _this.loadingMessage = "is baffled";
+                 _this.$set('searchQuery', "");
+                 document.querySelector(".search__field").focus();
 		    })
 		},
 		getAnalysis: function(){
@@ -66,46 +68,29 @@ var app = new Vue ({
                     };
                 }
 
-                // pull musicial artists from data
-				for (var j = 0; j < data.response.entities.length; j++) {
-					if (data.response.entities[j].confidenceScore > 0 && data.response.entities[j].type) {
-				 		for (var k = 0; k < data.response.entities[j].type.length; k++) {
-				 			if (data.response.entities[j].type[k] == "MusicalArtist") {
-				 				music.push(data.response.entities[j].entityId);
-				 			}
-				 		}
-				 	}
-				};
+                // pull musicial artists from response
+			     entityFilter( music, ["MusicalArtist"]);
 
-                for (var j = 0; j < data.response.entities.length; j++) {
-                    if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
-                        for (var k = 0; k < data.response.entities[j].type.length; k++) {
-                            if (data.response.entities[j].type[k] == "Food") {
-                                food.push(data.response.entities[j].entityId);
+                 // pull food from response
+                entityFilter( food, ["Food"] );
+
+                // pull sports related topics from response
+                entityFilter( sports, ["SportsEvent","Sport","SportsLeague"] );
+
+                // pull pragramming languages from response
+                entityFilter( programmingLanguage, ["ProgrammingLanguage"] );
+
+                function entityFilter( ary, aryTopics ) {
+                    for (var j = 0; j < data.response.entities.length; j++) {
+                        if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
+                            for (var k = 0; k < data.response.entities[j].type.length; k++) {
+                                if ( aryTopics.indexOf(data.response.entities[j].type[k]) > -1 ) {
+                                    ary.push(data.response.entities[j].entityId);
+                                }
                             }
                         }
                     }
-                };
-
-                for (var j = 0; j < data.response.entities.length; j++) {
-                    if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
-                        for (var k = 0; k < data.response.entities[j].type.length; k++) {
-                            if (data.response.entities[j].type[k] == "SportsEvent" || data.response.entities[j].type[k] == "Sport" || data.response.entities[j].type[k] == "SportsLeague") {
-                                sports.push(data.response.entities[j].entityId);
-                            }
-                        }
-                    }
-                };
-
-                for (var j = 0; j < data.response.entities.length; j++) {
-                    if (data.response.entities[j].confidenceScore > 1 && data.response.entities[j].type) {
-                        for (var k = 0; k < data.response.entities[j].type.length; k++) {
-                            if (data.response.entities[j].type[k] == "ProgrammingLanguage") {
-                                programmingLanguage.push(data.response.entities[j].entityId);
-                            }
-                        }
-                    }
-                };
+                }
 
 				_this.loadingMessage = "";
 				_this.$set('music', music);
