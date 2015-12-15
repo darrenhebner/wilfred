@@ -15,6 +15,11 @@ var app = new Vue ({
         aboutView: false
 	},
 
+    ready: function() {
+        // focus on search box when page is loaded
+        document.querySelector(".search__field").focus();
+    },
+
 	methods: {
 		getTweets: function() {
 			var _this = this;
