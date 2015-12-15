@@ -34,11 +34,11 @@ var app = new Vue ({
                     corpus += " " + data[i].text;
                 }
 
-				corpus = corpus.replace(/(https?:\/\/[^\s]+)/g, '');//remove links
-				corpus = corpus.replace(/[^a-zA-Z ]/g, "");//remove everything but letters
+				corpus = corpus.replace(/(https?:\/\/[^\s]+)/g, '');// remove links
+				corpus = corpus.replace(/[^a-zA-Z ]/g, "");// remove everything but letters
 				corpus = corpus.replace(/RT/g,''); // remove RT
 				corpus = corpus.toLowerCase(); // make lowercase
-				corpus = corpus.removeStopWords();
+				corpus = corpus.removeStopWords(); // remove stop words
 
 				_this.$set('corpus', corpus);
 				_this.loadingMessage = "is analyzing";
@@ -69,9 +69,9 @@ var app = new Vue ({
                 }
 
                 // pull musicial artists from response
-			     entityFilter( music, ["MusicalArtist"]);
+                entityFilter( music, ["MusicalArtist"]);
 
-                 // pull food from response
+                // pull food from response
                 entityFilter( food, ["Food"] );
 
                 // pull sports related topics from response
@@ -120,85 +120,38 @@ var app = new Vue ({
             // Building the final blurb according to topics found
             var sentence = "";
 
-            // if there are topics, build a sentence with them.
-            if (this.topics.length > 0) {
-                sentence += this.searchQuery + " is interested in ";
-                if (this.topics.length == 1) {
-                    sentence += this.topics[0] + ". ";
-                } else {
-                    for (var i = 0; i < this.topics.length; i++) {
-                        if (i < this.topics.length - 1) {
-                            sentence += this.topics[i] + ", ";
-                        } else {
-                            sentence += " and " + this.topics[i] + ". ";
+            // review data and build sentence with basic grammar
+            function buildSentence( category, phrase) {
+                if (category.length > 0) {
+                    sentence += phrase;
+                    if (category.length == 1) {
+                        sentence += category[0] + ". ";
+                    } else {
+                        for (var i = 0; i < category.length; i++) {
+                            if (i < category.length - 1) {
+                                sentence += category[i] + ", ";
+                            } else {
+                                sentence += " and " + category[i] + ". ";
+                            }
                         }
                     }
-                }
-            }   
+                }   
+            }
+
+            // if there are topics, build a sentence with them.
+            buildSentence(this.topics, "They are interested in ");
 
             // if there are musicians found, add them to the sentence
-            if (this.music.length > 0) {
-                sentence += "They like to listen to ";
-                if (this.music.length == 1) {
-                    sentence += this.music[0] + ". ";
-                } else {
-                    for (var i = 0; i < this.music.length; i++) {
-                        if (i < this.music.length - 1) {
-                            sentence += this.music[i] + ", ";
-                        } else {
-                            sentence += " and " + this.music[i] + ". ";
-                        }
-                    }
-                }
-            }
+            buildSentence(this.music, "They like to listen to ");
 
             // if there are foods found, add to sentence.
-            if (this.food.length > 0) {
-                sentence += "They like to eat ";
-                if (this.food.length == 1) {
-                    sentence += this.food[0] + ". ";
-                } else {
-                    for (var i = 0; i < this.food.length; i++) {
-                        if (i < this.food.length - 1) {
-                            sentence += this.food[i] + ", ";
-                        } else {
-                            sentence += " and " + this.food[i] + ". ";
-                        }
-                    }
-                }
-            }
+            buildSentence(this.food, "They like to eat ");
 
             // if any sports are found, add to sentence.
-            if (this.sports.length > 0) {
-                sentence += "They like ";
-                if (this.sports.length == 1) {
-                    sentence += this.sports[0] + ". ";
-                } else {
-                    for (var i = 0; i < this.sports.length; i++) {
-                        if (i < this.sports.length - 1) {
-                            sentence += this.sports[i] + ", ";
-                        } else {
-                            sentence += " and " + this.sports[i] + ". ";
-                        }
-                    }
-                }
-            }
+            buildSentence(this.sports, "They like ");
 
             // if programming languages are found, add to sentence.
-            if (this.programmingLanguage.length > 0) {
-                sentence += "They like to program with ";
-                if (this.programmingLanguage.length == 1) {
-                    sentence += this.programmingLanguage[0] + ". ";
-                } else {
-                    for (var i = 0; i < this.programmingLanguage.length; i++) {
-                        if (i < this.programmingLanguage.length - 1) {
-                            sentence += this.programmingLanguage[i] + ", ";
-                        } else {
-                            sentence += " and " + this.programmingLanguage[i] + ". ";
-                        }
-                    }
-                }
-            }
+            buildSentence(this.programmingLanguage, "They like to program with ");
 
             return sentence;
         },
