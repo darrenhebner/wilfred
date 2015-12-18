@@ -53,13 +53,14 @@ var app = new Vue ({
 		getAnalysis: function(){
 			var _this = this;
 			var topics = [];
-			var textSearchURL = 'php/analyze.php?corpus=' + this.corpus;
+			var textSearchURL = 'php/analyze.php';
+            var searchCorpus = this.corpus;
 			var food = [];
 			var music = [];
             var sports = [];
             var programmingLanguage = [];
 
-			this.$http.get(textSearchURL, function (data, status, request) {
+			this.$http.post(textSearchURL, searchCorpus, function (data, status, request) {
 
                 // pull topics from data
                 for (var i = 0; i < data.response.topics.length; i++) {

@@ -1,6 +1,6 @@
 <?php
 $url = 'https://api.textrazor.com/';
-$text = ($_GET['corpus']);
+$text = (file_get_contents('php://input'));
 $data = array('text' => $text, 'extractors' => 'topics,entities');
 
 // use key 'http' even if you send the request to https://...
