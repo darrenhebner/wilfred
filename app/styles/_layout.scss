@@ -20,6 +20,12 @@ nav {
 	cursor: pointer;
 }
 
+.loading-message {
+	@media screen and (max-width: 400px) {
+		display: none;
+	}
+}
+
 .nav__about {
 	float: right;
 	z-index: 1000;
@@ -31,6 +37,9 @@ nav {
 	@media screen and (max-width: 910px) {
 		width: 100%;
 	}
+	@media screen and (max-width: 400px) {
+		margin: 0.6em 0 0.4em;
+	}
 }
 
 .transform__container {
@@ -39,16 +48,27 @@ nav {
 	width: 90%;
 	max-width: 1200px;
 	transform: translateY(80vh);
+	-webkit-transform:translateY(80vh);
+	@media screen and (max-width: 400px) {
+		transform: translateY(70vh);
+		-webkit-transform:translateY(70vh);
+	}
 }
 
 .search__container {
+	display: -webkit-flex;
 	display: flex;
+	width: 100%;
 	& .search__field {
+		-webkit-flex: 4 0 8em;
 		flex: 4 0 8em;
 	}
 	& .search__btn {
+		-webkit-flex: 1 0 auto;
 		flex: 1 0 auto;
+		-webkit-align: right;
 		flex-align: right;
+		min-width: 40px;
 	}
 }
 
@@ -57,7 +77,6 @@ nav {
 	min-height: 5px;
 	max-height: 5px;
 	& p {
-		position: relative;
 		padding: 1.6em 0.8em 0;
 	}
 	& a {
@@ -76,11 +95,15 @@ nav {
 	& .about__inner {
 		margin: 200px 0;
 		max-width: 1200px;
+		max-width: 90%;
+		@media screen and (max-width: 400px) {
+			margin: 150px 0;
+		}
 		& p {
 			width: 75%;
 			margin-bottom: 1.6em;
 			@media screen and (max-width: 700px) {
-				width: 100%;
+				width: auto;
 			}
 		}
 	}

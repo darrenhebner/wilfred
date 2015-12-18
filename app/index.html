@@ -27,7 +27,7 @@
     
     <nav>
       <h1 class="nav__logo" @click="resetSearch">
-        Wilfred {{ loadingMessage }}
+        Wilfred <span class="loading-message">{{ loadingMessage }}</span>
       </h1>
 
       <a class="nav__about" @click="aboutView = !aboutView">About</a>
