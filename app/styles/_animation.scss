@@ -74,10 +74,10 @@
 
 @keyframes moveUp {
 	0% {
-		transform: transateY(0%);
+		transform: transateY(80vh);
 	}
 
 	100% {
-		transform: translateY(-60vh);
+		transform: translateY(10vh);
 	}
 }

@@ -35,9 +35,10 @@ nav {
 
 .transform__container {
 	position: absolute;
-	top: calc(100vh - 200px);
+	top: 0;
 	width: 90%;
 	max-width: 1200px;
+	transform: translateY(80vh);
 }
 
 .search__container {
