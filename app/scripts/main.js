@@ -16,7 +16,7 @@ var app = new Vue ({
 	},
 
     ready: function() {
-        // focus on search box when page is loaded
+        // focus on search box when app is loaded
         document.querySelector(".search__field").focus();
     },
 
@@ -147,7 +147,7 @@ var app = new Vue ({
             transformContainer.className = "transform__container";
 
         }
-	},
+	}, // end methods
     computed: {
         blurb: function() {
             // Building the final blurb according to topics found
@@ -198,8 +198,8 @@ var app = new Vue ({
 
             return validSearchQuery;
         }
-    }
-})
+    } //end computed
+}) //end app
 
 
 // removes duplicates from array
