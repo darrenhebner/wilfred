@@ -92,6 +92,13 @@ var app = new Vue ({
                     }
                 }
 
+                // remove duplicates from each array
+                music = music.unique();
+                food = food.unique();
+                topics = topics.unique();
+                sports = sports.unique();
+                programmingLanguage = programmingLanguage.unique();
+
 				_this.loadingMessage = "";
 				_this.$set('music', music);
                 _this.$set('food', food);
@@ -147,11 +154,13 @@ var app = new Vue ({
             var sentence = "";
 
             // review data and build sentence with basic grammar
-            function buildSentence( category, phrase) {
+            function buildSentence( category, phrase ) {
                 if (category.length > 0) {
                     sentence += phrase;
                     if (category.length == 1) {
                         sentence += category[0] + ". ";
+                    } else if (category.length == 2) {
+                        sentence += category[0] + " & " + category[1] + ". ";
                     } else {
                         for (var i = 0; i < category.length; i++) {
                             if (i < category.length - 1) {
@@ -192,6 +201,18 @@ var app = new Vue ({
     }
 })
 
+
+// removes duplicates from array
+Array.prototype.unique = function() {
+    return this.reduce(function(accum, current) {
+        if (accum.indexOf(current) < 0) {
+            accum.push(current);
+        }
+        return accum;
+    }, []);
+}
+
+// removes strop words from a string
 String.prototype.removeStopWords = function() {
     var x;
     var y;

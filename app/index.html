@@ -7,6 +7,7 @@
     <title>Wilfred</title>
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href='https://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
     <!-- Place favicon.ico in the root directory -->
 
     <!-- build:css styles/vendor.css -->
@@ -38,7 +39,7 @@
     
     <div class="transform__container">
       <form class="search__container" @submit.prevent="getTweets">
-        <input class="search__field" type="text" v-model="searchQuery">
+        <input class="search__field" type="text" v-model="searchQuery" placeholder="Enter their twitter handle">
         <input class="search__btn" type="submit" value="">
       </form>
 
@@ -55,7 +56,7 @@
         <p>Wilfred is your networking wingman.</p>
         <p>He will do the dirty work of skimming through anyones twitter feed to find their favourite things to talk about. This includes their favourite foods, sports teams, music, and even programming languages.</p>
 
-        <p><a @click="aboutView = false">&larr; Back to search.</a></p>
+        <p><a @click="aboutView = false">&larr; Back.</a></p>
       </div>
     </div>
     
