@@ -46,7 +46,7 @@
       <div class="result__container">
         <p v-show="resultsView">
           {{ blurb }}
-          <a @click="resetSearch">&larr; Back to search</a>
+          <a class="back__btn" @click="resetSearch"><span class="arrow">&larr;</span> Back to search</a>
         </p>
       </div>
     </div>
@@ -56,7 +56,7 @@
         <p>Wilfred is your networking wingman.</p>
         <p>He will do the dirty work of skimming through anyones twitter feed to find their favourite things to talk about. This includes their favourite foods, sports teams, music, and even programming languages.</p>
 
-        <p><a @click="aboutView = false">&larr; Back.</a></p>
+        <p><a class="back__btn" @click="aboutView = false"><span class="arrow"> &larr; </span> Back</a></p>
       </div>
     </div>
     
