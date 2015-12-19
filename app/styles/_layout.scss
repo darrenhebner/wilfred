@@ -47,11 +47,11 @@ nav {
 }
 
 .transform__container {
-	position: absolute;
+	position: absolute; // Positioned absolute in order to achieve transition effect
 	top: 0;
 	width: 90%;
 	max-width: 1200px;
-	transform: translateY(80vh);
+	transform: translateY(80vh); // Positioned with translate to improve animation quality
 	-webkit-transform:translateY(80vh);
 	@media screen and (max-width: 400px) {
 		transform: translateY(70vh);
@@ -79,7 +79,7 @@ nav {
 
 .result__container {
 	background-color: $white;
-	min-height: 5px;
+	min-height: 5px; // Used min and max to create exapand effect
 	max-height: 5px;
 	& p {
 		padding: 1.6em 0.8em 0;
@@ -91,7 +91,7 @@ nav {
 }
 
 .about__container {
-	position: absolute;
+	position: absolute; // The container covers up everything behind it except the navigation
 	background: $black;
 	top: 0;
 	left: 0;

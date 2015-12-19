@@ -25,6 +25,7 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
+    <!-- Navigation -->
     <nav>
       <h1 class="nav__logo" @click="resetSearch">
         Wilfred <span class="loading-message">{{ loadingMessage }}</span>
@@ -33,16 +34,19 @@
       <a class="nav__about" @click="aboutView = !aboutView">About</a>
     </nav>
 
+    <!-- Home View -->
     <h2 v-show="homeView" class="intro" transition="introFade">
       Who would you like to learn about?
     </h2>
     
     <div class="transform__container">
+      <!-- Form -->
       <form class="search__container" @submit.prevent="getTweets">
         <input class="search__field" type="text" v-model="searchQuery" placeholder="Enter their twitter handle">
         <input class="search__btn" type="submit">
       </form>
 
+      <!-- Search Result Container -->
       <div class="result__container">
         <p v-show="resultsView">
           {{ blurb }}
@@ -51,6 +55,7 @@
       </div>
     </div>
 
+    <!-- About View -->
     <div v-show="aboutView" class="about__container" transition="fade">
       <div v-show="aboutView" class="about__inner" transition="fadeInUp">
         <p>Wilfred is your networking wingman.</p>
